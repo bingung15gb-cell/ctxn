@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CXTTXN — Home of Fun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IM+Fell+English:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ─────────────────────────────────── */
+:root {
+  --bg:          #0c0b09;
+  --surface:     #131210;
+  --surface-2:   #1b1915;
+  --text:        #ddd8cc;
+  --text-dim:    #6b6558;
+  --brown:       #8c6840;
+  --brown-deep:  #3a2c1e;
+  --red:         #b83535;
+  --cream:       #ede7d8;
+  --chrome:      #c4bfb5;
+  --rule:        1px solid #2a211a;
+}
+
+/* ─── RESET ──────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ─── GRAIN OVERLAY ──────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: .032;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px;
+}
+
+/* ─── TICKER ─────────────────────────────────── */
+.ticker {
+  background: var(--brown);
+  overflow: hidden;
+  padding: 8px 0;
+  cursor: default;
+}
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 28s linear infinite;
+  width: max-content;
+}
+.ticker-track:hover { animation-play-state: paused; }
+.ticker-item {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  padding-right: 72px;
+}
+.ticker-item .star { margin-right: 16px; opacity: .7; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── NAV ────────────────────────────────────── */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: var(--rule);
+}
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: .22em;
+  color: var(--cream);
+  text-shadow: 2px 2px 0 var(--brown-deep);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+}
+.nav-logo:hover {
+  color: var(--brown);
+  transform: skewX(-8deg);
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color .18s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-ig {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color .18s;
+}
+.nav-ig:hover { color: var(--text); }
+
+/* ─── HERO ───────────────────────────────────── */
+.hero {
+  padding: 48px 40px 40px;
+  border-bottom: var(--rule);
+  overflow: hidden;
+}
+.hero-kicker {
+  font-size: 10px;
+  letter-spacing: .22em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.hero-headline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(88px, 17vw, 220px);
+  line-height: .875;
+  letter-spacing: -.01em;
+  color: var(--cream);
+  user-select: none;
+}
+.hero-headline .hollow {
+  -webkit-text-stroke: 1.5px var(--brown);
+  color: transparent;
+}
+.hero-sub {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: var(--rule);
+  gap: 24px;
+}
+.hero-tagline {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.2vw, 24px);
+  color: var(--brown);
+  line-height: 1.3;
+  max-width: 420px;
+}
+.hero-stamp {
+  text-align: right;
+  flex-shrink: 0;
+}
+.hero-stamp-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--chrome);
+  letter-spacing: .06em;
+  display: block;
+}
+.hero-stamp-sub {
+  font-size: 10px;
+  letter-spacing: .16em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* ─── SECTION LABEL ──────────────────────────── */
+.sec-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: var(--rule);
+}
+.sec-label-text {
+  font-size: 10px;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.sec-label-right {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--brown);
+  cursor: pointer;
+}
+
+/* ─── FEATURED DROP ──────────────────────────── */
+.featured {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: var(--rule);
+}
+.featured-visual {
+  background: var(--surface);
+  border-right: var(--rule);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.featured-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.featured-visual:hover img {
+  transform: scale(1.04);
+}
+/* subtle inner texture on visual panel */
+.featured-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255,255,255,.012) 2px,
+    rgba(255,255,255,.012) 4px
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+.featured-info {
+  padding: 52px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.featured-series {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--brown);
+  margin-bottom: 14px;
+}
+.featured-name {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(44px, 5.5vw, 76px);
+  line-height: .95;
+  color: var(--cream);
+}
+.featured-vol {
+  font-size: 10px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 10px;
+}
+.featured-desc {
+  font-size: 12px;
+  color: var(--text-dim);
+  line-height: 1.75;
+  max-width: 300px;
+  margin-top: 28px;
+}
+.featured-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: var(--rule);
+}
+.featured-price small {
+  display: block;
+  font-size: 10px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 3px;
+}
+.featured-price strong {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 44px;
+  color: var(--cream);
+  letter-spacing: .04em;
+  line-height: 1;
+  font-weight: 400;
+}
+.btn {
+  display: inline-block;
+  padding: 12px 28px;
+  font-size: 10px;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  transition: background .18s, color .18s;
+  cursor: pointer;
+  border-radius: 0;
+}
+.btn-fill {
+  background: var(--brown);
+  color: var(--cream);
+  border: 1px solid var(--brown);
+}
+.btn-fill:hover {
+  background: var(--cream);
+  color: var(--bg);
+  border-color: var(--cream);
+}
+.btn-ghost {
+  background: transparent;
+  color: var(--brown);
+  border: 1px solid var(--brown);
+}
+.btn-ghost:hover {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+/* ─── ARCHIVE GRID ───────────────────────────── */
+.archive {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: var(--rule);
+}
+.arc-item {
+  border-right: var(--rule);
+  transition: background .2s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.arc-item:last-child { border-right: none; }
+.arc-item:hover { background: var(--surface); }
+.arc-thumb {
+  aspect-ratio: 1;
+  background: var(--surface-2);
+  border-bottom: var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+.arc-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.arc-item:hover .arc-thumb img {
+  transform: scale(1.05);
+}
+.arc-body { padding: 18px 20px 22px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.arc-vol {
+  font-size: 9px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.arc-name {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 20px;
+  color: var(--cream);
+  line-height: 1.2;
+}
+.arc-badge {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 9px;
+  letter-spacing: .16em;
+  padding: 3px 8px;
+  text-transform: uppercase;
+  align-self: flex-start;
+  border-radius: 0;
+}
+.arc-badge.sold    { border: 1px solid var(--brown-deep); color: var(--text-dim); }
+.arc-badge.live    { border: 1px solid var(--brown);      color: var(--brown); }
+.arc-badge.ongoing { border: 1px solid var(--brown-deep); color: var(--text-dim); }
+
+/* ─── POPUP EVENT ────────────────────────────── */
+.event {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: var(--rule);
+}
+.event-left {
+  padding: 56px 40px;
+  border-right: var(--rule);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.event-eyebrow {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+.event-big {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(56px, 7vw, 104px);
+  line-height: .88;
+  color: var(--cream);
+  letter-spacing: -.01em;
+}
+.event-cta {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.event-right {
+  padding: 56px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+}
+.event-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 18px 0;
+  border-bottom: var(--rule);
+}
+.event-row:first-child { border-top: var(--rule); }
+.event-key {
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.event-val {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--cream);
+  text-align: right;
+}
+.event-note {
+  margin-top: 28px;
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+
+/* ─── MANIFESTO STRIP (Vintage Folder Card Style) ─── */
+.manifesto-container {
+  padding: 80px 40px 40px;
+  border-bottom: var(--rule);
+}
+.manifesto {
+  background: var(--cream);
+  color: var(--bg);
+  border: 1px solid #131210;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  position: relative;
+  border-radius: 0;
+  box-shadow: 6px 6px 0 var(--brown-deep);
+  margin: 0 auto;
+  max-width: 1000px;
+}
+.manifesto-tab {
+  position: absolute;
+  top: -29px;
+  left: -1px;
+  background: var(--cream);
+  color: var(--bg);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  padding: 6px 24px 5px;
+  border-top: 1px solid #131210;
+  border-left: 1px solid #131210;
+  border-right: 1px solid #131210;
+  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+}
+.manifesto-q {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  line-height: .9;
+  color: var(--bg);
+  -webkit-text-stroke: unset;
+  user-select: none;
+}
+.manifesto-text {
+  font-family: 'Space Mono', monospace;
+  font-style: normal;
+  font-size: 13px;
+  color: #33312e;
+  line-height: 1.65;
+  max-width: 100%;
+}
+.manifesto-text em {
+  color: var(--brown-deep);
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ─── FOOTER ─────────────────────────────────── */
+footer {
+  padding: 28px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+.foot-brand {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 14px;
+  letter-spacing: .28em;
+  color: var(--brown);
+}
+.foot-copy {
+  font-size: 10px;
+  color: var(--text-dim);
+  letter-spacing: .06em;
+}
+.foot-links {
+  display: flex;
+  gap: 20px;
+}
+.foot-links a {
+  font-size: 10px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  transition: color .18s;
+}
+.foot-links a:hover { color: var(--text); }
+
+/* ─── PRODUCT MODAL (GX1000 Style Split View) ─── */
+.p-modal {
+  display: none;
+  position: fixed;
+  z-index: 20000;
+  inset: 0;
+  background: rgba(12, 11, 9, 0.95);
+  overflow-y: auto;
+  backdrop-filter: blur(8px);
+}
+.p-modal-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-left: var(--rule);
+  border-right: var(--rule);
+  background: var(--bg);
+  position: relative;
+}
+.p-modal-gallery {
+  border-right: var(--rule);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+  height: 100vh;
+  scrollbar-width: none;
+}
+.p-modal-gallery::-webkit-scrollbar { display: none; }
+.p-modal-gallery img {
+  width: 100%;
+  object-fit: cover;
+  border: var(--rule);
+  background: var(--surface);
+}
+.p-modal-info {
+  padding: 60px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  overflow-y: auto;
+}
+.p-modal-close {
+  position: absolute;
+  top: 24px;
+  right: 48px;
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: .15em;
+  cursor: pointer;
+  transition: color 0.18s;
+  z-index: 21000;
+}
+.p-modal-close:hover { color: var(--cream); }
+
+.p-modal-sizes {
+  margin: 28px 0;
+}
+.p-modal-sizes-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  margin-bottom: 12px;
+}
+.p-modal-sizes-grid {
+  display: flex;
+  gap: 10px;
+}
+.p-modal-size-btn {
+  width: 48px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--brown-deep);
+  background: transparent;
+  color: var(--text-dim);
+  font-family: inherit;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.p-modal-size-btn:hover, .p-modal-size-btn.active {
+  border-color: var(--brown);
+  color: var(--cream);
+  background: var(--brown-deep);
+}
+.p-modal-desc {
+  margin-bottom: 28px;
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+.p-modal-desc p {
+  margin-bottom: 16px;
+}
+.p-modal-desc ul {
+  list-style: none;
+  padding-left: 0;
+}
+.p-modal-desc li {
+  margin-bottom: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.p-modal-desc li::before {
+  content: '■';
+  color: var(--brown);
+  font-size: 8px;
+  flex-shrink: 0;
+}
+.p-modal-cta {
+  margin-top: 40px;
+  border-top: var(--rule);
+  padding-top: 24px;
+}
+
+/* ─── EVENT CATALOG SLIDER ───────────────────── */
+.event-catalog {
+  border-top: var(--rule);
+  padding: 40px;
+  background: var(--surface);
+  position: relative;
+}
+.event-catalog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.event-catalog-title {
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--brown);
+}
+.event-slider-nav {
+  display: flex;
+  gap: 12px;
+}
+.event-slider-btn {
+  background: transparent;
+  border: 1px solid var(--brown);
+  color: var(--brown);
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: .1em;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.18s;
+  border-radius: 0;
+}
+.event-slider-btn:hover {
+  background: var(--brown);
+  color: var(--cream);
+}
+.event-slider-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+.event-slider-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+.event-slider-card {
+  flex: 0 0 calc((100% - 40px) / 3); /* 3 cards visible on desktop */
+  background: var(--bg);
+  border: var(--rule);
+  display: flex;
+  flex-direction: column;
+}
+.event-slider-img {
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-bottom: var(--rule);
+  background: var(--surface-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.event-slider-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.event-slider-card:hover .event-slider-img img {
+  transform: scale(1.04);
+}
+.event-slider-body {
+  padding: 18px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+.event-slider-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.event-slider-vol {
+  font-size: 8px;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.event-slider-name {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--cream);
+  line-height: 1.25;
+}
+.event-slider-price {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  color: var(--brown);
+  font-weight: 700;
+  margin-top: 4px;
+}
+.event-slider-sizes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-top: 1px dashed var(--brown-deep);
+  padding-top: 10px;
+}
+.event-slider-size-title {
+  font-size: 8px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.event-slider-size-list {
+  display: flex;
+  gap: 6px;
+}
+.event-slider-size-item {
+  font-size: 9px;
+  padding: 2px 6px;
+  border: 1px solid var(--brown-deep);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  cursor: default;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────── */
+@media (max-width: 800px) {
+  nav { padding: 16px 20px; }
+  .nav-links { display: none; }
+
+  .hero { padding: 36px 20px 32px; }
+
+  .sec-label { padding: 18px 20px; }
+
+  .featured { grid-template-columns: 1fr; }
+  .featured-visual {
+    border-right: none;
+    border-bottom: var(--rule);
+    aspect-ratio: 4/3;
+  }
+  .featured-info { padding: 32px 20px 36px; }
+  .featured-footer { margin-top: 28px; padding-top: 24px; }
+
+  .archive { grid-template-columns: repeat(2, 1fr); }
+  .arc-item { border-right: var(--rule); }
+  .arc-item:nth-child(2n) { border-right: none; }
+  .arc-item:last-child { border-right: none; }
+
+  .event { grid-template-columns: 1fr; }
+  .event-left {
+    border-right: none;
+    border-bottom: var(--rule);
+    padding: 40px 20px;
+    min-height: auto;
+  }
+  .event-right { padding: 32px 20px; }
+
+  .manifesto-container { padding: 40px 20px; }
+  .manifesto { padding: 28px 20px; }
+
+  footer {
+    padding: 24px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  /* Modal Mobile responsive */
+  .p-modal-content {
+    grid-template-columns: 1fr;
+  }
+  .p-modal-gallery {
+    border-right: none;
+    border-bottom: var(--rule);
+    height: auto;
+    overflow-y: visible;
+    padding: 20px;
+  }
+  .p-modal-info {
+    height: auto;
+    position: static;
+    padding: 30px 20px;
+    overflow-y: visible;
+  }
+  .p-modal-close {
+    top: 16px;
+    right: 20px;
+  }
+
+  /* Slider Mobile Responsive */
+  .event-catalog {
+    padding: 24px 20px;
+  }
+  .event-slider-card {
+    flex: 0 0 100%; /* 1 card visible on mobile */
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="star">★</span>POP UP AT COLORTONES — 20–23 JUNE 2026 — YOGYAKARTA</span>
+    <span class="ticker-item"><span class="star">★</span>STAR BOUND VOL.11 — PRE-ORDER 18–25 MAY</span>
+    <span class="ticker-item"><span class="star">★</span>COMPOSED IN CHAOS VOL.10 — 160K / DP 100K</span>
+    <span class="ticker-item"><span class="star">★</span>STICKER PACK INCLUDED ON SELECT PURCHASES</span>
+    <span class="ticker-item"><span class="star">★</span>POP UP AT COLORTONES — 20–23 JUNE 2026 — YOGYAKARTA</span>
+    <span class="ticker-item"><span class="star">★</span>STAR BOUND VOL.11 — PRE-ORDER 18–25 MAY</span>
+    <span class="ticker-item"><span class="star">★</span>COMPOSED IN CHAOS VOL.10 — 160K / DP 100K</span>
+    <span class="ticker-item"><span class="star">★</span>STICKER PACK INCLUDED ON SELECT PURCHASES</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">CXTTXN</a>
+  <ul class="nav-links">
+    <li><a href="#drop">Latest Drop</a></li>
+    <li><a href="#archive">Archive</a></li>
+    <li><a href="#event">Pop Up</a></li>
+  </ul>
+  <a href="https://instagram.com/cxttxnnn" target="_blank" rel="noopener" class="nav-ig">↗ @cxttxnnn</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-kicker">©XTTXN · Yogyakarta, ID · Est. 2322+4</p>
+  <h1 class="hero-headline" aria-label="CXTTXN Home of Fun">
+    <span style="display:block">CXTTXN</span>
+    <span class="hollow" style="display:block">HOME</span>
+    <span class="hollow" style="display:block">OF FUN.</span>
+  </h1>
+  <div class="hero-sub">
+    <p class="hero-tagline">
+      integrity stays,<br>nothing else does.
+    </p>
+    <div class="hero-stamp">
+      <span class="hero-stamp-num">2322+4</span>
+      <span class="hero-stamp-sub">Series Ongoing</span>
+    </div>
+  </div>
+</section>
+
+<!-- CURRENT DROP -->
+<section id="drop">
+  <div class="sec-label">
+    <span class="sec-label-text">Latest Drop</span>
+    <span class="sec-label-right" onclick="openProduct('vol11')">Quick View ↗</span>
+  </div>
+  <div class="featured">
+    <div class="featured-visual" onclick="openProduct('vol11')" aria-label="View Star Bound Hoodie details">
+      <img src="event_vol11.jpg" alt="Vol.11 Star Bound Hoodie">
+    </div>
+    <div class="featured-info">
+      <div>
+        <p class="featured-series">Current Series — Star Bound</p>
+        <h2 class="featured-name" style="cursor: pointer;" onclick="openProduct('vol11')">Star<br>Bound</h2>
+        <p class="featured-vol">CXTTXN Vol.11 · 2322+4 · Cotton Fleece 300gsm</p>
+        <p class="featured-desc">
+          A form of love that stays quiet, but never leaves.
+          Oversize fit. Choose INT or KEY series styles.
+          Sticker pack included on purchase.
+        </p>
+      </div>
+      <div class="featured-footer">
+        <div class="featured-price">
+          <small>Starting from</small>
+          <strong>160K</strong>
+        </div>
+        <button onclick="openProduct('vol11')" class="btn btn-fill">
+          View Details
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHIVE -->
+<section id="archive">
+  <div class="sec-label">
+    <span class="sec-label-text">Archive</span>
+    <a href="https://instagram.com/cxttxnnn" target="_blank" rel="noopener" class="sec-label-right">
+      View All on IG ↗
+    </a>
+  </div>
+  <div class="archive">
+    <div class="arc-item" onclick="openProduct('vol10')">
+      <div class="arc-thumb">
+        <img src="event_vol10.jpg" alt="Composed in Chaos">
+      </div>
+      <div class="arc-body">
+        <div>
+          <p class="arc-vol">Vol.10</p>
+          <h3 class="arc-name">Composed<br>in Chaos</h3>
+        </div>
+        <span class="arc-badge live">Available — 160K</span>
+      </div>
+    </div>
+    <div class="arc-item" onclick="openProduct('vol09')">
+      <div class="arc-thumb">
+        <img src="event_vol9.jpg" alt="Quiet Devotion">
+      </div>
+      <div class="arc-body">
+        <div>
+          <p class="arc-vol">Vol.09</p>
+          <h3 class="arc-name">Quiet<br>Devotion</h3>
+        </div>
+        <span class="arc-badge sold">Sold Out — 120K</span>
+      </div>
+    </div>
+    <div class="arc-item" onclick="openProduct('vol08')">
+      <div class="arc-thumb">
+        <img src="event_vol8.jpg" alt="Glass Series">
+      </div>
+      <div class="arc-body">
+        <div>
+          <p class="arc-vol">Vol.08</p>
+          <h3 class="arc-name">Glass<br>Series</h3>
+        </div>
+        <span class="arc-badge sold">Sold Out — 120K</span>
+      </div>
+    </div>
+    <div class="arc-item" onclick="openProduct('vol07')">
+      <div class="arc-thumb">
+        <img src="vol07_certified_lover.jpg" alt="Certified Lover">
+      </div>
+      <div class="arc-body">
+        <div>
+          <p class="arc-vol">Vol.07</p>
+          <h3 class="arc-name">Certified<br>Lover</h3>
+        </div>
+        <span class="arc-badge sold">Sold Out — 110K</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POP UP EVENT -->
+<section id="event">
+  <div class="sec-label">
+    <span class="sec-label-text">Upcoming Event</span>
+  </div>
+  <div class="event">
+    <div class="event-left">
+      <p class="event-eyebrow">Pop Up Store</p>
+      <h2 class="event-big">AT<br>COLOR<br>TONES.</h2>
+      <div class="event-cta">
+        <a href="https://instagram.com/cxttxnnn" target="_blank" rel="noopener" class="btn btn-fill">
+          IG for Updates
+        </a>
+      </div>
+    </div>
+    <div class="event-right">
+      <div>
+        <div class="event-row">
+          <span class="event-key">Date</span>
+          <span class="event-val">20 — 23 June 2026</span>
+        </div>
+        <div class="event-row">
+          <span class="event-key">Venue</span>
+          <span class="event-val">Colortones</span>
+        </div>
+        <div class="event-row">
+          <span class="event-key">City</span>
+          <span class="event-val">Yogyakarta, ID</span>
+        </div>
+        <div class="event-row">
+          <span class="event-key">Brand</span>
+          <span class="event-val">©XTTXN / 2322+4</span>
+        </div>
+      </div>
+      <p class="event-note">
+        Come through. See the drops in person.<br>
+        Sticker pack on select purchases.<br>
+        All series available on-site.
+      </p>
+    </div>
+  </div>
+
+  <!-- Event Catalog Slider -->
+  <div class="event-catalog">
+    <div class="event-catalog-header">
+      <span class="event-catalog-title">Pop Up Exclusive Catalog & Sizes</span>
+      <div class="event-slider-nav">
+        <button class="event-slider-btn" onclick="slideEvent(-1)">[ PREV ]</button>
+        <button class="event-slider-btn" onclick="slideEvent(1)">[ NEXT ]</button>
+      </div>
+    </div>
+    <div class="event-slider-wrapper">
+      <div class="event-slider-track" id="event-slider-track">
+        
+        <!-- Item 1: Vol.11 Hoodie -->
+        <div class="event-slider-card" onclick="openProduct('vol11')">
+          <div class="event-slider-img">
+            <img src="event_vol11.jpg" alt="Vol. 11 Hoodies">
+          </div>
+          <div class="event-slider-body">
+            <div class="event-slider-info">
+              <span class="event-slider-vol">Vol.11 / Star Bound</span>
+              <h4 class="event-slider-name">BW Fleece Hoodie</h4>
+              <span class="event-slider-price">Rp 320.000</span>
+            </div>
+            <div class="event-slider-sizes">
+              <span class="event-slider-size-title">On-site Sizes Available</span>
+              <div class="event-slider-size-list">
+                <span class="event-slider-size-item">S</span>
+                <span class="event-slider-size-item">M</span>
+                <span class="event-slider-size-item">L</span>
+                <span class="event-slider-size-item">XL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2: Vol.10 Crewneck -->
+        <div class="event-slider-card" onclick="openProduct('vol10')">
+          <div class="event-slider-img">
+            <img src="event_vol10.jpg" alt="Vol. 10 Crewneck">
+          </div>
+          <div class="event-slider-body">
+            <div class="event-slider-info">
+              <span class="event-slider-vol">Vol.10 / Composed in Chaos</span>
+              <h4 class="event-slider-name">Brown Crewneck</h4>
+              <span class="event-slider-price">Rp 160.000</span>
+            </div>
+            <div class="event-slider-sizes">
+              <span class="event-slider-size-title">On-site Sizes Available</span>
+              <div class="event-slider-size-list">
+                <span class="event-slider-size-item">S</span>
+                <span class="event-slider-size-item">M</span>
+                <span class="event-slider-size-item">L</span>
+                <span class="event-slider-size-item">XL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3: Vol.9 Tee -->
+        <div class="event-slider-card" onclick="openProduct('vol09')">
+          <div class="event-slider-img">
+            <img src="event_vol9.jpg" alt="Vol. 9 Quiet Devotion Tee">
+          </div>
+          <div class="event-slider-body">
+            <div class="event-slider-info">
+              <span class="event-slider-vol">Vol.09 / Quiet Devotion</span>
+              <h4 class="event-slider-name">White Oversize Tee</h4>
+              <span class="event-slider-price">Rp 120.000</span>
+            </div>
+            <div class="event-slider-sizes">
+              <span class="event-slider-size-title">On-site Sizes Available</span>
+              <div class="event-slider-size-list">
+                <span class="event-slider-size-item">S</span>
+                <span class="event-slider-size-item">M</span>
+                <span class="event-slider-size-item">L</span>
+                <span class="event-slider-size-item">XL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 4: Vol.8 Tee -->
+        <div class="event-slider-card" onclick="openProduct('vol08')">
+          <div class="event-slider-img">
+            <img src="event_vol8.jpg" alt="Vol. 8 Glass Tee">
+          </div>
+          <div class="event-slider-body">
+            <div class="event-slider-info">
+              <span class="event-slider-vol">Vol.08 / Glass Series</span>
+              <h4 class="event-slider-name">Black Oversize Tee</h4>
+              <span class="event-slider-price">Rp 120.000</span>
+            </div>
+            <div class="event-slider-sizes">
+              <span class="event-slider-size-title">On-site Sizes Available</span>
+              <div class="event-slider-size-list">
+                <span class="event-slider-size-item">S</span>
+                <span class="event-slider-size-item">M</span>
+                <span class="event-slider-size-item">L</span>
+                <span class="event-slider-size-item">XL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 5: The Menu (Special Event Tee) -->
+        <div class="event-slider-card" onclick="openProduct('menu')">
+          <div class="event-slider-img">
+            <img src="event_menu.jpg" alt="The Menu Special Tee">
+          </div>
+          <div class="event-slider-body">
+            <div class="event-slider-info">
+              <span class="event-slider-vol">Pop Up Special / Colortones Menu</span>
+              <h4 class="event-slider-name">Poodle Box Tee</h4>
+              <span class="event-slider-price">Rp 110.000</span>
+            </div>
+            <div class="event-slider-sizes">
+              <span class="event-slider-size-title">On-site Sizes Available</span>
+              <div class="event-slider-size-list">
+                <span class="event-slider-size-item">S</span>
+                <span class="event-slider-size-item">M</span>
+                <span class="event-slider-size-item">L</span>
+                <span class="event-slider-size-item">XL</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO STRIP (Vintage Manila Folder Card) -->
+<div class="manifesto-container">
+  <div class="manifesto">
+    <div class="manifesto-tab">MANIFESTO / ROC</div>
+    <div class="manifesto-q">ROC.</div>
+    <p class="manifesto-text">
+      <em>did you work at the meaning of life?</em><br><br>
+      A place for fun even when it feels off.<br>
+      People leave. Things change. <em>Integrity stays</em>, nothing else does.<br>
+      We make things because we have to.
+    </p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span class="foot-brand">©XTTXN</span>
+  <span class="foot-copy">Yogyakarta, ID — Est. 2322+4</span>
+  <div class="foot-links">
+    <a href="https://instagram.com/cxttxnnn" target="_blank" rel="noopener">Instagram</a>
+    <a href="#drop">Drops</a>
+    <a href="#archive">Archive</a>
+    <a href="#event">Pop Up</a>
+  </div>
+</footer>
+
+<!-- PRODUCT DETAIL MODAL (GX1000 Style Split View) -->
+<div id="product-modal" class="p-modal">
+  <button class="p-modal-close" onclick="closeModal()">[ CLOSE ]</button>
+  <div class="p-modal-content">
+    <div class="p-modal-gallery" id="modal-gallery">
+      <!-- Dynamic images stack here -->
+    </div>
+    <div class="p-modal-info">
+      <div>
+        <span id="modal-series"></span>
+        <h2 id="modal-title" class="featured-name" style="margin: 10px 0 15px; font-size: clamp(32px, 4.5vw, 56px);"></h2>
+        <p id="modal-vol" style="font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 24px;"></p>
+        <div id="modal-price" style="font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--cream); letter-spacing: .04em; margin-bottom: 28px; line-height: 1;"></div>
+        
+        <div class="p-modal-sizes">
+          <div class="p-modal-sizes-label">Select Size</div>
+          <div class="p-modal-sizes-grid">
+            <button class="p-modal-size-btn" onclick="selectSize(this)">S</button>
+            <button class="p-modal-size-btn" onclick="selectSize(this)">M</button>
+            <button class="p-modal-size-btn active" onclick="selectSize(this)">L</button>
+            <button class="p-modal-size-btn" onclick="selectSize(this)">XL</button>
+          </div>
+        </div>
+
+        <div class="p-modal-desc" id="modal-desc">
+          <!-- Dynamic descriptions & bullets here -->
+        </div>
+      </div>
+      
+      <div class="p-modal-cta">
+        <a href="https://instagram.com/cxttxnnn" target="_blank" rel="noopener" class="btn btn-fill" style="width: 100%; text-align: center; display: block; padding: 16px; font-size: 11px;">
+          Order via Instagram
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const products = {
+  vol11: {
+    series: "Current Series — Star Bound",
+    title: "Star Bound Hoodie & Tee",
+    vol: "CXTTXN Vol.11 · 2322+4",
+    price: "Rp 320.000 (Hoodie) / Rp 160.000 (Tee)",
+    images: ["event_vol11.jpg"],
+    bullets: [
+      "Cotton Fleece 300gsm (Hoodie) or Heavyweight Cotton 24s (Tee)",
+      "Oversize boxy fit with drop shoulders",
+      "Premium plastisol & HD print graphics",
+      "Sticker pack and special packaging included on purchase",
+      "Available in INT and KEY series variations"
+    ],
+    rawDesc: "A form of love that stays quiet, but never leaves. Composed for those who wander under starry skies. Integrity stays."
+  },
+  vol10: {
+    series: "Archive Series — Composed in Chaos",
+    title: "Composed in Chaos Crewneck",
+    vol: "CXTTXN Vol.10 · 2322+4",
+    price: "Rp 160.000",
+    images: ["event_vol10.jpg"],
+    bullets: [
+      "Premium Cotton Fleece 300gsm",
+      "Pixelated chest screenprint composition",
+      "Classic boxy fit",
+      "Comes with exclusive compost sticker pack",
+      "Secure your size club release"
+    ],
+    rawDesc: "A visual representation of finding balance within noise. Pay when you get the tee club release."
+  },
+  vol09: {
+    series: "Archive Series — Quiet Devotion",
+    title: "Quiet Devotion Tee",
+    vol: "CXTTXN Vol.09 · 2322+4",
+    price: "Rp 120.000",
+    images: ["event_vol9.jpg"],
+    bullets: [
+      "Oversize Heavyweight Cotton 210gsm",
+      "High definition DTF print",
+      "Detailed blue gothic cathedral architectural sketch",
+      "Pre-order limited release (1-10 Feb)"
+    ],
+    rawDesc: "A quiet devotion that stands like old stone architecture. A form of love that stays quiet, but never leaves."
+  },
+  vol08: {
+    series: "Archive Series — Glass Series",
+    title: "Glass Tee / don't you worry baby",
+    vol: "CXTTXN Vol.08 · 2322+4",
+    price: "Rp 120.000",
+    images: ["event_vol8.jpg"],
+    bullets: [
+      "Oversize Heavyweight Cotton 210gsm",
+      "Front screenprinted 'don't you worry baby GLASS' artwork",
+      "Classic skater boxy fit",
+      "High definition DTF printing",
+      "Pre-order limited release (8-18 Nov)"
+    ],
+    rawDesc: "don't you worry baby, i've got time and i'm gon' give it to you. A special tribute design."
+  },
+  vol07: {
+    series: "Archive Series — Certified Lover",
+    title: "Certified Lover Tees",
+    vol: "CXTTXN Vol.07 · 2322+4",
+    price: "Rp 110.000",
+    images: ["vol07_certified_lover.jpg"],
+    bullets: [
+      "Heavyweight Cotton 24s",
+      "Floppy disk heart chest print",
+      "Back print 'sometimes home breathes'",
+      "High definition DTF printing"
+    ],
+    rawDesc: "Certified Lover marks all who dare to love. Sometimes home breathes, sometimes it is composed in chaos."
+  },
+  menu: {
+    series: "Pop Up Exclusive — The Menu",
+    title: "Poodle Box Tee",
+    vol: "CXTTXN Pop Up Store Special",
+    price: "Rp 110.000 (Tee Only) / Rp 120.000 (Drink Bundling)",
+    images: ["event_menu.jpg"],
+    bullets: [
+      "Heavyweight Cotton 24s Black Tee",
+      "Front cute poodle sitting on stack of boxes graphic",
+      "Special limited release for Colortones Pop Up Event",
+      "Available with exclusive drink bundling offer on-site"
+    ],
+    rawDesc: "The special edition item for the Yogyakarta Pop Up Store at Colortones. Come through, see the drops in person."
+  }
+};
+
+function openProduct(id) {
+  const prod = products[id];
+  if (!prod) return;
+  
+  document.getElementById('modal-series').innerText = prod.series;
+  document.getElementById('modal-title').innerHTML = prod.title;
+  document.getElementById('modal-vol').innerText = prod.vol;
+  document.getElementById('modal-price').innerText = prod.price;
+  
+  // Populate gallery
+  const gallery = document.getElementById('modal-gallery');
+  gallery.innerHTML = '';
+  prod.images.forEach(imgSrc => {
+    const img = document.createElement('img');
+    img.src = imgSrc;
+    img.alt = prod.title;
+    gallery.appendChild(img);
+  });
+  
+  // Populate description
+  const descDiv = document.getElementById('modal-desc');
+  let html = `<p>${prod.rawDesc}</p><ul>`;
+  prod.bullets.forEach(bullet => {
+    html += `<li>${bullet}</li>`;
+  });
+  html += '</ul>';
+  descDiv.innerHTML = html;
+  
+  document.getElementById('product-modal').style.display = 'block';
+  document.body.style.overflow = 'hidden'; // prevent background scrolling
+}
+
+function closeModal() {
+  document.getElementById('product-modal').style.display = 'none';
+  document.body.style.overflow = ''; // restore background scrolling
+}
+
+function selectSize(btn) {
+  const buttons = btn.parentElement.querySelectorAll('.p-modal-size-btn');
+  buttons.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Close modal on Escape or clicking outside content
+window.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+window.addEventListener('click', function(e) {
+  const modal = document.getElementById('product-modal');
+  if (e.target === modal) closeModal();
+});
+
+// Event Catalog Slider Animation
+let currentEventSlide = 0;
+function slideEvent(direction) {
+  const track = document.getElementById('event-slider-track');
+  const cards = document.querySelectorAll('.event-slider-card');
+  if (!track || cards.length === 0) return;
+  
+  const cardWidth = cards[0].getBoundingClientRect().width;
+  const gap = 20; // css grid gap
+  const totalCards = cards.length;
+  
+  // Calculate visible cards based on screen size
+  const visibleCards = window.innerWidth > 800 ? 3 : 1;
+  const maxSlides = totalCards - visibleCards;
+  
+  currentEventSlide += direction;
+  
+  if (currentEventSlide < 0) {
+    currentEventSlide = maxSlides;
+  } else if (currentEventSlide > maxSlides) {
+    currentEventSlide = 0;
+  }
+  
+  const amount = currentEventSlide * (cardWidth + gap);
+  track.style.transform = `translateX(-${amount}px)`;
+}
+
+// Reset slider position on window resize to avoid grid breaks
+window.addEventListener('resize', () => {
+  currentEventSlide = 0;
+  const track = document.getElementById('event-slider-track');
+  if (track) track.style.transform = 'translateX(0)';
+});
+</script>
+
+</body>
+</html>
